@@ -38,7 +38,7 @@ screen at 100 % and 150 % zoom, 44 px minimum tap targets, installable manifest
 with a maskable icon, service-worker registration and precaching, and a clean
 console.
 
-## Two real bugs found and fixed before deploy
+## Three real bugs found and fixed
 
 **1. `base` gated on the build command.** `vite.config.ts` set the Pages subpath
 only when `command === 'build'`. `vite preview` runs as `serve`, so preview
@@ -54,6 +54,17 @@ tests, producing failures that moved between runs. Fixed by blocking service
 workers for the main suite and opting one spec back in to test PWA behaviour
 directly. Suite time went from 2.4 minutes with 15 failures to 11.5 seconds with
 none.
+
+**3. `.gitignore` excluding real source.** A bare `build/` rule matched
+`src/core/build/`, so `buildInfo.ts`, `runtimeInfo.ts` and their test were never
+committed. Every local check passed; the first CI run failed on a clean checkout
+with "cannot find module". Build-output rules are now anchored to the repository
+root, and `scripts/check-tracked.mjs` fails the build if any file under `src`,
+`tests`, `scripts`, `public` or `.github` is excluded by an ignore rule. Verified
+against a planted rule: exit 1 when source is ignored, 0 when clean.
+
+This one is worth keeping in mind for later phases — it is invisible to every
+check that runs against the working tree, and only a clean checkout catches it.
 
 ## Verification tooling
 

@@ -3,18 +3,18 @@
 > Live, phone-readable status for Workout Conductor. Updated at least once per
 > phase.
 
-|                            |                                                                                         |
-| -------------------------- | --------------------------------------------------------------------------------------- |
-| **Repository**             | https://github.com/Bill6006/Workout-Conductor-Rebuild-v2                                |
-| **Live app**               | https://bill6006.github.io/Workout-Conductor-Rebuild-v2/                                |
-| **Current phase**          | Phase 0 — Repository, Live Pages, and Scaffold                                          |
-| **Phase state**            | 🟡 YELLOW — awaiting Android review                                                     |
-| **Current branch**         | `main`                                                                                  |
-| **Latest completed phase** | None (Phase 0 is the first)                                                             |
-| **Work in progress**       | Phase 0 review gate                                                                     |
-| **Latest commit**          | [commit history](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/commits/main) |
-| **Latest deployment**      | [Actions](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/actions)             |
-| **Last updated**           | 2026-09-01                                                                              |
+|                            |                                                                                                                                                                                  |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repository**             | https://github.com/Bill6006/Workout-Conductor-Rebuild-v2                                                                                                                         |
+| **Live app**               | https://bill6006.github.io/Workout-Conductor-Rebuild-v2/                                                                                                                         |
+| **Current phase**          | Phase 0 — Repository, Live Pages, and Scaffold                                                                                                                                   |
+| **Phase state**            | 🟡 YELLOW — awaiting Android review                                                                                                                                              |
+| **Current branch**         | `main`                                                                                                                                                                           |
+| **Latest completed phase** | None (Phase 0 is the first)                                                                                                                                                      |
+| **Work in progress**       | Phase 0 review gate                                                                                                                                                              |
+| **Latest commit**          | [commit history](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/commits/main) — the exact deployed build is shown in the app header and in Settings → About this build |
+| **Latest deployment**      | ✅ live — [Actions](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/actions)                                                                                            |
+| **Last updated**           | 2026-09-01                                                                                                                                                                       |
 
 ---
 
@@ -24,6 +24,7 @@
 - [Commits](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/commits/main)
 - [Actions](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/actions)
 - [Master execution issue](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/issues/1)
+- [Milestone: Workout Conductor v1](https://github.com/Bill6006/Workout-Conductor-Rebuild-v2/milestone/1)
 - [Phase 0 report](docs/reports/phase-0.md)
 - [Architecture](docs/architecture.md)
 - [Privacy rules](docs/privacy-rules.md)
@@ -39,7 +40,10 @@
 | **Total**                                      | **52** | **✅ pass** |
 
 Also green: ESLint, Prettier, TypeScript (`strict`, `noUncheckedIndexedAccess`),
-privacy scan, build verification.
+privacy scan, build verification, tracked-source check.
+
+The full pipeline runs on every push to `main` and the deploy step only runs if
+all of it passes.
 
 Bundle: 177 KB uncompressed, 59 KB gzipped.
 
@@ -57,13 +61,14 @@ Bundle: 177 KB uncompressed, 59 KB gzipped.
 - Runtime diagnostics panel in Settings
 - Privacy scanner, verified against planted samples
 - Build verifier for base path, manifest, icons, service worker, build marker
-- Real Android-sized screenshots
+- Tracked-source check, so an ignore rule cannot silently drop source again
+- Real Android-sized screenshots, captured from the live deployment
 
 ---
 
 ## Screenshots
 
-Captured from the built application, not mockups.
+Captured from the **live deployment**, not from a local build and not mockups.
 
 **All five screens (412 × 915)**
 

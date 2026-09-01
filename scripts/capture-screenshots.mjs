@@ -18,7 +18,15 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PHASE = process.argv[2] ?? 'phase-0';
 const OUT_DIR = join(ROOT, 'docs', 'screenshots', PHASE);
 const PORT = 4321;
-const BASE = `http://127.0.0.1:${PORT}/Workout-Conductor-Rebuild-v2/`;
+
+/**
+ * Capture target. Defaults to a local preview; set WC_CAPTURE_BASE to the live
+ * Pages URL to capture the deployment itself, which is stronger evidence for a
+ * phase report than a local build.
+ */
+const BASE =
+  process.env.WC_CAPTURE_BASE ?? `http://127.0.0.1:${PORT}/Workout-Conductor-Rebuild-v2/`;
+const IS_REMOTE = Boolean(process.env.WC_CAPTURE_BASE);
 
 const SCREENS = [
   { id: 'today', label: 'Today' },
@@ -51,6 +59,11 @@ async function waitForServer(timeoutMs = 60_000) {
 let server = null;
 
 async function ensureServer() {
+  if (IS_REMOTE) {
+    console.log('  capturing the live deployment at', BASE);
+    if (!(await isUp())) throw new Error(`${BASE} is not reachable`);
+    return;
+  }
   if (await isUp()) {
     console.log('  using the preview server already listening on', PORT);
     return;
@@ -131,7 +144,7 @@ async function buildContactSheet(context) {
 </style></head>
 <body>
   <h1>Workout Conductor - ${PHASE.replace('-', ' ')}</h1>
-  <p>Captured from the built application at 412 x 915.</p>
+  <p>Captured at 412 x 915 from ${IS_REMOTE ? 'the live deployment' : 'a local build'}: ${BASE}</p>
   <div class="grid">${tiles}</div>
 </body></html>`;
 
