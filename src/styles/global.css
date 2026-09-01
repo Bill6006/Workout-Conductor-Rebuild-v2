@@ -1,0 +1,202 @@
+@import './tokens.css';
+
+/* ---------- reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--wc-bg);
+  color: var(--wc-text);
+  font-family: var(--wc-font);
+  font-size: var(--wc-text-body);
+  line-height: 1.5;
+  font-weight: var(--wc-weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Stop rubber-band scroll revealing a white page behind the app. */
+  overscroll-behavior-y: none;
+  /* The one place horizontal overflow is caught for real. */
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* Kill the blue tap flash on Android. */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+a {
+  color: var(--wc-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--wc-weight-semibold);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--wc-text);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--wc-focus-ring);
+  border-radius: var(--wc-radius-sm);
+}
+
+/* ---------- shared primitives ---------- */
+
+.wc-card {
+  background: var(--wc-surface);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--wc-radius-lg);
+  padding: var(--wc-space-5);
+  box-shadow: var(--wc-shadow-card);
+}
+
+.wc-card__title {
+  font-size: var(--wc-text-heading);
+  font-weight: var(--wc-weight-semibold);
+}
+
+.wc-card__body {
+  margin-top: var(--wc-space-2);
+  font-size: var(--wc-text-body);
+  color: var(--wc-text-secondary);
+  /* Long words must wrap rather than push the layout wide. */
+  overflow-wrap: anywhere;
+}
+
+.wc-eyebrow {
+  font-size: var(--wc-text-micro);
+  font-weight: var(--wc-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wc-text-muted);
+}
+
+.wc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wc-space-1);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--wc-radius-pill);
+  font-size: var(--wc-text-micro);
+  font-weight: var(--wc-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wc-pill--accent {
+  background: var(--wc-accent-dim);
+  border: 1px solid var(--wc-accent-line);
+  color: var(--wc-accent);
+}
+
+.wc-pill--muted {
+  background: var(--wc-surface-2);
+  border: 1px solid var(--wc-border);
+  color: var(--wc-text-muted);
+}
+
+/* Primary action: the single loudest thing on any screen. */
+.wc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wc-space-2);
+  min-height: 3.25rem;
+  padding: 0 var(--wc-space-6);
+  border-radius: var(--wc-radius-pill);
+  font-size: var(--wc-text-body);
+  font-weight: var(--wc-weight-semibold);
+  letter-spacing: -0.005em;
+  transition:
+    transform var(--wc-duration-fast) var(--wc-ease),
+    background-color var(--wc-duration-fast) var(--wc-ease);
+}
+
+.wc-button:active {
+  transform: scale(0.98);
+}
+
+.wc-button--primary {
+  width: 100%;
+  background: var(--wc-accent);
+  color: var(--wc-on-accent);
+  box-shadow: var(--wc-shadow-accent);
+}
+
+.wc-button--primary:active {
+  background: var(--wc-accent-press);
+}
+
+.wc-button--secondary {
+  width: 100%;
+  background: var(--wc-surface-2);
+  border: 1px solid var(--wc-border-strong);
+  color: var(--wc-text);
+}
+
+.wc-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

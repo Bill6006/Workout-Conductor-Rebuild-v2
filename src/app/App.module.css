@@ -1,0 +1,36 @@
+.app {
+  position: relative;
+  width: 100%;
+  max-width: var(--wc-app-max-width);
+  margin: 0 auto;
+  min-height: 100dvh;
+  /* On a desktop viewport the phone column gets hairlines so it reads as a
+     deliberate layout rather than a stretched mobile page. */
+  border-inline: 1px solid transparent;
+}
+
+@media (min-width: 34rem) {
+  .app {
+    border-inline-color: var(--wc-border);
+  }
+}
+
+.skipLink {
+  position: absolute;
+  top: var(--wc-space-2);
+  left: 50%;
+  transform: translate(-50%, -200%);
+  z-index: 60;
+  padding: var(--wc-space-2) var(--wc-space-4);
+  border-radius: var(--wc-radius-pill);
+  background: var(--wc-accent);
+  color: var(--wc-on-accent);
+  font-size: var(--wc-text-small);
+  font-weight: var(--wc-weight-semibold);
+  transition: transform var(--wc-duration-fast) var(--wc-ease);
+}
+
+.skipLink:focus-visible {
+  transform: translate(-50%, 0);
+  text-decoration: none;
+}

@@ -1,0 +1,70 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--wc-space-4);
+  background: var(--wc-surface);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--wc-radius-lg);
+  padding: var(--wc-space-4) var(--wc-space-5);
+  box-shadow: var(--wc-shadow-card);
+}
+
+/* The next phase to land gets a lime edge so the roadmap reads at a glance. */
+.card[data-next='true'] {
+  border-color: var(--wc-accent-line);
+  background:
+    linear-gradient(
+      180deg,
+      var(--wc-accent-dim) 0%,
+      rgba(201, 249, 88, 0) 42%,
+      rgba(201, 249, 88, 0) 100%
+    ),
+    var(--wc-surface);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wc-space-3);
+}
+
+.title {
+  font-size: var(--wc-text-heading);
+  font-weight: var(--wc-weight-semibold);
+  letter-spacing: -0.015em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.text {
+  margin-top: var(--wc-space-2);
+  font-size: var(--wc-text-small);
+  line-height: 1.55;
+  color: var(--wc-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.items {
+  margin-top: var(--wc-space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wc-space-2);
+}
+
+.item {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--wc-radius-sm);
+  background: var(--wc-surface-2);
+  border: 1px solid var(--wc-border);
+  font-size: var(--wc-text-micro);
+  font-weight: var(--wc-weight-medium);
+  color: var(--wc-text-muted);
+  white-space: nowrap;
+}

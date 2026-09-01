@@ -1,0 +1,98 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--wc-radius-xl);
+  padding: var(--wc-space-5);
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(201, 249, 88, 0.22) 0%, rgba(201, 249, 88, 0) 58%),
+    var(--wc-surface);
+  border: 1px solid var(--wc-border-strong);
+  box-shadow: var(--wc-shadow-raised);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wc-space-3);
+}
+
+.phase {
+  margin-top: var(--wc-space-3);
+  font-size: var(--wc-text-display);
+  font-weight: var(--wc-weight-bold);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.subtitle {
+  margin-top: var(--wc-space-2);
+  font-size: var(--wc-text-body);
+  color: var(--wc-text-secondary);
+  max-width: 32ch;
+}
+
+.checks {
+  margin-top: var(--wc-space-5);
+  display: grid;
+  gap: var(--wc-space-2);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--wc-space-3);
+  font-size: var(--wc-text-small);
+  color: var(--wc-text-secondary);
+}
+
+.tick {
+  display: grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--wc-accent-dim);
+  border: 1px solid var(--wc-accent-line);
+  color: var(--wc-accent);
+}
+
+/* Label-left / value-right rows rather than two columns: a UTC timestamp is
+   too wide for half a 360px card and wrapped mid-value. */
+.meta {
+  margin-top: var(--wc-space-5);
+  padding-top: var(--wc-space-2);
+  border-top: 1px solid var(--wc-border);
+}
+
+.metaItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--wc-space-4);
+  padding: var(--wc-space-2) 0;
+  min-width: 0;
+}
+
+.metaLabel {
+  font-size: var(--wc-text-micro);
+  font-weight: var(--wc-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wc-text-faint);
+  flex: none;
+}
+
+.metaValue {
+  font-family: var(--wc-font-mono);
+  font-size: var(--wc-text-small);
+  color: var(--wc-text);
+  text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.action {
+  margin-top: var(--wc-space-5);
+}

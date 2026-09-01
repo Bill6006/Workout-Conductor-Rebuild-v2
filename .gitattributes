@@ -1,0 +1,16 @@
+# Normalise to LF in the repository and in the working copy. Prettier is
+# configured with endOfLine: "lf", so a CRLF checkout on Windows would make
+# format:check disagree with CI.
+* text=auto eol=lf
+
+# Binary assets must never be touched.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
+*.webm binary

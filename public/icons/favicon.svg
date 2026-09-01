@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Workout Conductor">
+  <rect width="32" height="32" rx="7.2" fill="rgb(201,249,88)" />
+  <rect x="6.5" y="19" width="5" height="7" rx="2.5" fill="rgb(135,166,62)" />
+  <rect x="13.5" y="13" width="5" height="13" rx="2.5" fill="rgb(83,102,42)" />
+  <rect x="20.5" y="6" width="5" height="20" rx="2.5" fill="rgb(11,12,14)" />
+</svg>

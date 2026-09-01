@@ -1,0 +1,46 @@
+.screen {
+  padding: 0 var(--wc-gutter);
+  /* Clear the fixed bottom nav plus the Android gesture bar. */
+  padding-bottom: calc(var(--wc-nav-height) + var(--wc-safe-bottom) + var(--wc-space-8));
+  animation: fade var(--wc-duration-base) var(--wc-ease);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen {
+    animation: none;
+  }
+}
+
+.head {
+  margin-bottom: var(--wc-space-5);
+}
+
+.title {
+  font-size: var(--wc-text-title);
+  font-weight: var(--wc-weight-bold);
+  letter-spacing: -0.025em;
+}
+
+.lede {
+  margin-top: var(--wc-space-2);
+  font-size: var(--wc-text-body);
+  color: var(--wc-text-secondary);
+  max-width: 34ch;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wc-space-4);
+}

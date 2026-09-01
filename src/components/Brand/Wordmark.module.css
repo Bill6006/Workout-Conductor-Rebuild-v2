@@ -1,0 +1,36 @@
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--wc-space-3);
+  min-width: 0;
+}
+
+.text {
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--wc-text-body);
+  font-weight: var(--wc-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--wc-text);
+  white-space: nowrap;
+}
+
+.tagline {
+  font-size: var(--wc-text-micro);
+  font-weight: var(--wc-weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--wc-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Trim the subtitle rather than truncate it mid-word on narrow phones. */
+@media (max-width: 26rem) {
+  .taglineRest {
+    display: none;
+  }
+}

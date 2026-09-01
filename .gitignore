@@ -1,0 +1,53 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+dist-ssr/
+build/
+*.local
+
+# test output
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# editor / os
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# env
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------
+# PRIVACY: real user data must never enter this repository.
+# Workout history, notes, and backups stay in the browser only.
+# ---------------------------------------------------------------
+*backup*.json
+!docs/**/*backup-schema*.json
+*export*.json
+!package.json
+!package-lock.json
+workout-history*.json
+user-data/
+private/
+personal/
+my-*.json
