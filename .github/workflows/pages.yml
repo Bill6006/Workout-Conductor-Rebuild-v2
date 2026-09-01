@@ -67,6 +67,9 @@ jobs:
       - name: Verify build output
         run: npm run verify:build
 
+      - name: Check no source is excluded by .gitignore
+        run: npm run check:tracked
+
       # 7. browser smoke test
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium

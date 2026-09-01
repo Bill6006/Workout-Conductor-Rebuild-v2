@@ -3,10 +3,12 @@ node_modules/
 .pnp
 .pnp.js
 
-# build output
-dist/
-dist-ssr/
-build/
+# build output - anchored to the repository root on purpose. A bare `build/`
+# also matches source directories such as src/core/build/, which silently
+# excluded real source from the first commit.
+/dist/
+/dist-ssr/
+/build/
 *.local
 
 # test output
