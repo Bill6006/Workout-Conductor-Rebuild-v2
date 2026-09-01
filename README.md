@@ -28,11 +28,11 @@ reaches the public site. See [docs/privacy-rules.md](docs/privacy-rules.md).
 
 ## Status
 
-Phase 0 of 8 — repository, CI, GitHub Pages and the app shell.
+Phase 1 of 8 — onboarding, profile, settings and local persistence.
 
-The live link works on Android today and shows the real shell, the five-tab
-navigation, the current phase and a build marker proving which build is running.
-Each subsequent phase deploys to the same permanent URL.
+The live link is a working early product: set yourself up, see a session preview
+built from your answers, edit anything, and reload to find it exactly as you left
+it. Each subsequent phase deploys to the same permanent URL.
 
 | Phase | Delivers                                          | State       |
 | ----- | ------------------------------------------------- | ----------- |
@@ -97,9 +97,14 @@ public/icons/        generated PWA icons (see scripts/generate-icons.mjs)
 scripts/             icon generation, privacy scan, build verification, capture
 src/
   app/               shell, hash routing
-  components/        reusable UI primitives
-  core/              build info, runtime probes, PWA lifecycle
-  features/          one folder per navigation tab
+  components/        reusable UI primitives, form controls
+  core/
+    backup/          export and import envelope
+    build/           build info and runtime probes
+    model/           profile and equipment, with Zod schemas
+    state/           profile store
+    storage/         IndexedDB, localStorage, verified saves
+  features/          one folder per navigation tab, plus onboarding
   styles/            design tokens and global CSS
 tests/e2e/           Playwright browser and mobile tests
 PHASE.txt            the phase label shown in the build marker

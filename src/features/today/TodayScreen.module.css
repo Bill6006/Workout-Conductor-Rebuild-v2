@@ -1,0 +1,21 @@
+.setupRow {
+  display: flex;
+  justify-content: center;
+}
+
+.setupLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wc-space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--wc-space-4);
+  border-radius: var(--wc-radius-pill);
+  font-size: var(--wc-text-small);
+  font-weight: var(--wc-weight-semibold);
+  color: var(--wc-text-secondary);
+}
+
+.setupLink:hover {
+  text-decoration: none;
+  color: var(--wc-text);
+}

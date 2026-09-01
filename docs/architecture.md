@@ -90,6 +90,53 @@ back in to prove registration and precaching genuinely work.
 The `virtual:pwa-register/react` module only exists inside a plugin build, so
 unit tests alias it to a stub with the same shape.
 
+## Data layer (Phase 1)
+
+Two stores, with the line the plan draws between them.
+
+| Data                                               | Store        | Why                                                  |
+| -------------------------------------------------- | ------------ | ---------------------------------------------------- |
+| Profile, locations, equipment, limitations         | IndexedDB    | Durable training data                                |
+| Onboarding progress, units mirror, active location | localStorage | Small, must be readable synchronously on first paint |
+
+`core/storage/idb.ts` is a hand-rolled typed wrapper rather than a package.
+Storage is a core owner: the plan requires verified saves and an upgrade path
+that can never destroy history, and owning ~150 lines is cheaper than bending
+someone else's abstraction around that. Upgrades are additive only — no
+`deleteObjectStore`, ever. Writes resolve on transaction _completion_, not
+request success, because a write is only real once the transaction commits.
+
+`core/storage/saveVerified.ts` is the only path critical data takes into
+storage: write, read back, compare. The comparison is structural, tolerating
+the key reordering and dropped `undefined`s that the structured clone algorithm
+introduces and nothing else. Its io is injectable, because the failure paths it
+exists to catch are unreachable through a healthy IndexedDB — and a guard that
+has never been seen to fire is not a guard.
+
+`core/storage/profileRepository.ts` validates on both sides. A stored profile
+that no longer parses is salvaged **field by field**: spreading the whole
+damaged record over the defaults just re-introduces the invalid values it failed
+on, which is how a recovery path silently becomes a data-loss path.
+
+When IndexedDB cannot be opened at all, the store runs from memory and sets
+`durable: false`, and the app shows a banner. Degrading loudly beats a dead
+screen or, worse, a silent one.
+
+## State
+
+`core/state/profileStore.ts` is a small external store read through
+`useSyncExternalStore`. The profile is read by nearly every screen and written
+rarely, so this gives correct tearing behaviour without re-rendering the tree on
+every keystroke. Timestamps are passed in from the edge rather than read inside
+the store, so tests stay deterministic.
+
+## Synthetic demo data
+
+`features/today/demoWorkout.ts` is explicitly not an engine. It carries a
+`synthetic: true` flag and every render path keeps a visible banner. It applies
+real equipment filtering, exclusions and a duration trim — enough to make the
+preview responsive to the profile — and models nothing else. Phase 3 deletes it.
+
 ## Planned engine boundaries
 
 Not yet built. Recorded so later phases do not drift into duplicate systems —

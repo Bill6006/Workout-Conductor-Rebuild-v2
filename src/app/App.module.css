@@ -34,3 +34,31 @@
   transform: translate(-50%, 0);
   text-decoration: none;
 }
+
+/* Shown only while the first storage read settles. */
+.loading {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+}
+
+.spinner {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--wc-surface-3);
+  border-top-color: var(--wc-accent);
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}

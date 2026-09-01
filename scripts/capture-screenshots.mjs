@@ -15,7 +15,19 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const PHASE = process.argv[2] ?? 'phase-0';
+/** Defaults to the current phase, so a capture cannot land in the wrong folder. */
+function currentPhaseSlug() {
+  try {
+    return readFileSync(new URL('../PHASE.txt', import.meta.url), 'utf8')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+  } catch {
+    return 'phase-0';
+  }
+}
+
+const PHASE = process.argv[2] ?? currentPhaseSlug();
 const OUT_DIR = join(ROOT, 'docs', 'screenshots', PHASE);
 const PORT = 4321;
 
@@ -81,6 +93,30 @@ async function ensureServer() {
 
 function stopServer() {
   if (server && !server.killed) server.kill();
+}
+
+/* -------------------------------------------------------------- onboarding */
+
+/**
+ * Walk the real setup flow so the captured screens show a configured app.
+ *
+ * The profile lives in IndexedDB, which is per-context, so every context that
+ * captures a post-setup screen has to go through this first.
+ */
+async function completeOnboarding(context) {
+  const page = await context.newPage();
+  await page.setViewportSize({ width: 412, height: 915 });
+  await page.goto(BASE, { waitUntil: 'load' });
+
+  for (let guard = 0; guard < 20; guard += 1) {
+    const next = page.getByTestId('onboarding-next');
+    const isFinish = (await next.textContent()) === 'Finish setup';
+    await next.click();
+    if (isFinish) break;
+  }
+
+  await page.getByTestId('nav-today').waitFor({ state: 'visible', timeout: 15_000 });
+  await page.close();
 }
 
 /* ---------------------------------------------------------------- capturing */
@@ -181,6 +217,23 @@ const context = await browser.newContext({
 });
 
 try {
+  // Onboarding is what a new user sees first, so it is captured before setup
+  // is completed.
+  const intro = await context.newPage();
+  await intro.setViewportSize({ width: 412, height: 915 });
+  await intro.goto(BASE, { waitUntil: 'load' });
+  await settle(intro);
+  await intro.screenshot({ path: join(OUT_DIR, 'onboarding-welcome-412.png') });
+  console.log('  onboarding-welcome-412.png');
+
+  await intro.getByTestId('onboarding-next').click();
+  await settle(intro);
+  await intro.screenshot({ path: join(OUT_DIR, 'onboarding-goals-412.png') });
+  console.log('  onboarding-goals-412.png');
+  await intro.close();
+
+  await completeOnboarding(context);
+
   // Android-sized captures of every screen.
   for (const screen of SCREENS) {
     await capture(context, {
@@ -205,8 +258,14 @@ try {
 
   await buildContactSheet(context);
 
-  // Desktop needs its own context: isMobile forces a mobile user agent.
-  const desktop = await browser.newContext({ deviceScaleFactor: 1, colorScheme: 'dark' });
+  // Desktop needs its own context: isMobile forces a mobile user agent. A new
+  // context means a new IndexedDB, so setup has to be repeated.
+  const desktop = await browser.newContext({
+    deviceScaleFactor: 1,
+    colorScheme: 'dark',
+    serviceWorkers: 'block',
+  });
+  await completeOnboarding(desktop);
   await capture(desktop, {
     file: 'today-desktop.png',
     path: '#/today',

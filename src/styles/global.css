@@ -171,8 +171,13 @@ ol {
   transform: scale(0.98);
 }
 
-.wc-button--primary {
+/* Width is a layout decision, not part of the variant. A modifier that forced
+   width: 100% broke every flex row it appeared in - use --block to opt in. */
+.wc-button--block {
   width: 100%;
+}
+
+.wc-button--primary {
   background: var(--wc-accent);
   color: var(--wc-on-accent);
   box-shadow: var(--wc-shadow-accent);
@@ -183,7 +188,6 @@ ol {
 }
 
 .wc-button--secondary {
-  width: 100%;
   background: var(--wc-surface-2);
   border: 1px solid var(--wc-border-strong);
   color: var(--wc-text);
