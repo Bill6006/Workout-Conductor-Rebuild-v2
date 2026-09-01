@@ -94,6 +94,18 @@ third-party artwork.
 Startup on real hardware is measured in Phase 1, once there is a meaningful
 first paint to measure.
 
+## Verified on the live deployment
+
+- First visit returns the current build (`4ec0cc2` at time of writing).
+- Service worker registers and precaches the shell; the "Ready to work offline"
+  toast appears.
+- No console errors.
+- A returning visitor may see the previous build for up to 10 minutes after a
+  deploy: GitHub Pages sets `Cache-Control: max-age=600` on `sw.js`, so the
+  browser's update check can read a cached worker. Bounded and self-healing.
+  The fix is registering with `updateViaCache: 'none'`, which belongs with the
+  Phase 8 service-worker update safety work rather than here.
+
 ## Not in this phase
 
 Workout generation, onboarding, persistence, exercise catalog, demonstration

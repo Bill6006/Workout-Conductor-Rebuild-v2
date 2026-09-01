@@ -104,6 +104,13 @@ These are Phase 0 scope boundaries, not defects.
   phase is shown in full on the Today hero and in Settings diagnostics.
 - **Playwright covers 412 px and 360 px.** The full 375/430 px and
   115/130 percent zoom matrix lands with the interactive UI in Phase 5.
+- **A returning visitor can see the previous build for up to 10 minutes after a
+  deploy.** GitHub Pages serves `sw.js` with `Cache-Control: max-age=600`, so
+  the browser's update check can read a cached worker for that long. It is
+  bounded and self-healing, and opening the link fresh always gets the current
+  build. Registering with `updateViaCache: 'none'` is the fix; it belongs with
+  the service-worker update safety work in Phase 8.
+  Check Settings → About this build for the build you are actually running.
 
 ---
 
